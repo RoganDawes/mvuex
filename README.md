@@ -17,7 +17,7 @@ The whole app is purely written in go with a small index.html container (Vue.js 
 To start the example run:
 
 ```
-go get github.com/mame82/mvue
+go get -u github.com/mame82/mvuex/example
 gopherjs serve
 ```
 
