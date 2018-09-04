@@ -10,6 +10,7 @@ import (
 
 
 var (
+	eWrongGetterArgs       = errors.New("A getter needs one owr two arguments (first one representing the state, second an optional parameter)")
 	eTooFewMutationArgs       = errors.New("Mutation function has too few arguments (min 2)")
 	eTooManyMutationArgs      = errors.New("Mutation function has too many arguments (max 3)")
 	eWrongActionArgCount      = errors.New("Wrong argument count! An action handler takes 3 or 4 args: actionHandler(store *Store, context *ActionContext, state *{CustomStateType} [, callArg *{CustomArgType])")
@@ -29,9 +30,7 @@ var (
 
 func o() *js.Object { return js.Global.Get("Object").New() } //Helper to create *js.Object
 
-
 func castToType(targetType reflect.Type, sourceVal *js.Object) (result reflect.Value, err error) {
-
 	switch kind := targetType.Kind(); kind {
 	case reflect.Int:
 		//try to convert sourceVal to int before generating reflect.Value
