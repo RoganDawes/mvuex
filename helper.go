@@ -31,6 +31,10 @@ var (
 func o() *js.Object { return js.Global.Get("Object").New() } //Helper to create *js.Object
 
 func castToType(targetType reflect.Type, sourceVal *js.Object) (result reflect.Value, err error) {
+	if checkIfJSObject(targetType) {
+		return reflect.ValueOf(sourceVal), nil
+	}
+
 	switch kind := targetType.Kind(); kind {
 	case reflect.Int:
 		//try to convert sourceVal to int before generating reflect.Value
@@ -114,3 +118,12 @@ func checkIfJSStruct(objType reflect.Type) bool {
 	if typeField0.Elem() != jsObjectType { return false } // not pointing to js.Object
 	return true
 }
+
+func checkIfJSObject(objType reflect.Type) bool {
+
+	if objType.Kind() != reflect.Ptr { return false } //not a pointer
+	// dereference ptr and check if equal to type js.Object
+	if objType.Elem() != jsObjectType { return false } // not pointing to js.Object
+	return true
+}
+
