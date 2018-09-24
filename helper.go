@@ -67,6 +67,8 @@ func castToType(targetType reflect.Type, sourceVal *js.Object) (result reflect.V
 		result = reflect.ValueOf(sourceVal.Unsafe())
 	case reflect.String:
 		result = reflect.ValueOf(sourceVal.String())
+	case reflect.Slice:
+		result = reflect.ValueOf(sourceVal.Interface())
 	case reflect.Struct:
 		//WE ASSUME THAT THE FIRST FIELD OF THE STRUCT IS OF TYPE *js.Object
 		//check if first field is *js.Object
