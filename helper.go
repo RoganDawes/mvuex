@@ -1,3 +1,5 @@
+// +build js
+
 package mvuex
 
 //ToDo:	check for Vuex in js.Global scope and panic if missing

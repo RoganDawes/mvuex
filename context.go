@@ -1,3 +1,5 @@
+// +build js
+
 package mvuex
 
 import "github.com/gopherjs/gopherjs/js"

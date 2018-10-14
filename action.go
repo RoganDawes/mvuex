@@ -1,3 +1,5 @@
+// +build js
+
 package mvuex
 
 import (
@@ -82,7 +84,15 @@ func wrapGoActionFunc(reflectedGoFunc reflect.Value ) (jsFunc *js.Object, err er
 		}
 
 		// Call the go function and return the result
-		return reflectedGoFunc.Call(goCallArgsTargetValues)
+		reflectedResultVals := reflectedGoFunc.Call(goCallArgsTargetValues)
+		goResultVals := make([]interface{}, len(reflectedResultVals))
+		for i,rVal := range reflectedResultVals {
+			goResultVals[i] = rVal.Interface()
+		}
+		if len(goResultVals) == 1 {
+			return goResultVals[0]
+		}
+		return goResultVals
 	})
 
 	return jsFunc, nil
